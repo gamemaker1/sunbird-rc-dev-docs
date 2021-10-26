@@ -1,0 +1,1219 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sunbird RC Developer Documentation</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Sunbird RC Overview</a></li><li class="chapter-item expanded affix "><li class="part-title">Installation And Setup</li><li class="chapter-item expanded "><a href="guides/installation.html"><strong aria-hidden="true">2.</strong> Installation Guide</a></li><li class="chapter-item expanded "><a href="guides/setup-registry-instance.html"><strong aria-hidden="true">3.</strong> Setting Up Your Own Registry Instance</a></li><li class="chapter-item expanded affix "><li class="part-title">Using The APIs</li><li class="chapter-item expanded "><a href="guides/introduction-to-schemas.html"><strong aria-hidden="true">4.</strong> An Introduction To Schemas</a></li><li class="chapter-item expanded "><a href="guides/using-the-apis.html"><strong aria-hidden="true">5.</strong> Using The APIs</a></li><li class="chapter-item expanded "><a href="guides/schema-declaration.html"><strong aria-hidden="true">6.</strong> Creating Your Own Schemas</a></li><li class="chapter-item expanded affix "><li class="part-title">Advanced Guides</li><li class="chapter-item expanded "><a href="guides/dev-setup.html"><strong aria-hidden="true">7.</strong> Running The Registry From Source</a></li><li class="chapter-item expanded affix "><li class="part-title">API Reference</li><li class="chapter-item expanded "><a href="apis/create.html"><strong aria-hidden="true">8.</strong> Creating An Entity</a></li><li class="chapter-item expanded "><a href="apis/auth.html"><strong aria-hidden="true">9.</strong> Authenticating As An Entity</a></li><li class="chapter-item expanded "><a href="apis/retrieve.html"><strong aria-hidden="true">10.</strong> Retrieving An Entity</a></li><li class="chapter-item expanded "><a href="apis/update.html"><strong aria-hidden="true">11.</strong> Updating An Entity</a></li><li class="chapter-item expanded "><a href="apis/claim.html"><strong aria-hidden="true">12.</strong> Making A Claim</a></li><li class="chapter-item expanded "><a href="apis/attest.html"><strong aria-hidden="true">13.</strong> Attesting/Rejecting A Claim</a></li><li class="chapter-item expanded affix "><li class="part-title">Contributing And Issues</li><li class="chapter-item expanded "><a href="community/contributing.html"><strong aria-hidden="true">14.</strong> Contributing</a></li><li class="chapter-item expanded "><a href="community/code-of-conduct.html"><strong aria-hidden="true">15.</strong> Code of Conduct</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Sunbird RC Developer Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="sunbird-registry-and-credentials"><a class="header" href="#sunbird-registry-and-credentials">Sunbird Registry and Credentials</a></h1>
+<p>Sunbird RC is an open-source software framework for rapidly building electronic
+registries, enable atestation capabilities, and build verifiable credentialling
+with minimal effort.</p>
+<p>Registry is a shared digital infrastructure which enables authorized data
+repositories to publish appropriate data and metadata about a user/entity along
+with the link to the repository in a digitally signed form. It allows data
+owners to provide authorized access to other users/entities in controlled manner
+for digital verification and usage.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<blockquote>
+<p>This guide assumes a some familiarity with basic linux commands. If not,
+<a href="https://ubuntu.com/tutorials/command-line-for-beginners#1-overview">here</a> is
+a great place to start.</p>
+</blockquote>
+<blockquote>
+<p>Don't copy-paste the <code>$</code> signs, they indicate that what follows is a terminal
+command</p>
+</blockquote>
+<h3 id="terminal-emulator"><a class="header" href="#terminal-emulator">Terminal emulator</a></h3>
+<p>Linux and MacOS will have a terminal installed already. For Windows, it is
+recommended that you use <code>git-bash</code>, which you can install from
+<a href="https://git-scm.com/download/win">here</a>.</p>
+<p>Type <code>echo Hi</code> in the terminal once it is installed. If installed correctly, you
+should see <code>Hi</code> appear when you hit enter.</p>
+<h3 id="git"><a class="header" href="#git">Git</a></h3>
+<p>Installation instructions for Git can be found
+<a href="https://github.com/git-guides/install-git">here</a>.</p>
+<p>Run <code>git --version</code> in the terminal if <code>git</code> has been installed correctly:</p>
+<pre><code class="language-sh">$ git --version
+git version 2.33.0
+</code></pre>
+<h3 id="nodejs"><a class="header" href="#nodejs">NodeJS</a></h3>
+<p>Installation instructions for NodeJS can be found
+<a href="https://nodejs.org/en/download/package-manager/">here</a>.</p>
+<p>Run <code>node -v</code> in the terminal if <code>node</code> has been installed correctly:</p>
+<pre><code class="language-sh">$ node -v
+v16.11.0
+</code></pre>
+<h3 id="docker"><a class="header" href="#docker">Docker</a></h3>
+<p>Installation instructions for Docker can be found
+<a href="https://docs.docker.com/engine/install/">here</a>.</p>
+<p>Run <code>docker -v</code> in terminal to check if <code>docker</code> has been installed correctly:</p>
+<pre><code class="language-sh">$ docker -v
+Docker version 20.10.9, build c2ea9bc90b
+</code></pre>
+<h3 id="docker-compose"><a class="header" href="#docker-compose">Docker Compose</a></h3>
+<p>Installation instructions can be found
+<a href="https://docs.docker.com/engine/install/">here</a>.</p>
+<p>Run <code>docker-compose -v</code> in terminal to check if <code>docker-compose</code> has been
+installed correctly:</p>
+<pre><code class="language-sh">$ docker-compose -v
+Docker Compose version 2.0.1
+</code></pre>
+<h2 id="installing-the-registry-cli"><a class="header" href="#installing-the-registry-cli">Installing the Registry CLI</a></h2>
+<p>To install the official Registry CLI, run:</p>
+<pre><code class="language-sh">$ npm install --global registry-cli
+</code></pre>
+<blockquote>
+<p>In case you encounter a permission denied/access denied error here, prefix the
+command with <code>sudo</code>: <code>sudo npm install --global registry-cli</code>.</p>
+</blockquote>
+<p>To check if the Registry CLI has been installed correctly, run:</p>
+<pre><code>$ registry --help
+</code></pre>
+<p>This should show you all the commands you can execute using the CLI.</p>
+<h2 id="next-steps"><a class="header" href="#next-steps">Next Steps</a></h2>
+<p>Now that you have the Registry CLI running, you can
+<a href="guides/setup-registry-instance.html">setup your own registry instance</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="setting-up-a-registry-instance"><a class="header" href="#setting-up-a-registry-instance">Setting Up A Registry Instance</a></h1>
+<p>Now that you have the Registry CLI installed, we can create a new instance of a
+registry!</p>
+<p>Run the following command in a directory where you wish to setup the registry.
+For this example, we will use <code>~/Registries/example/</code>. (<code>~</code> is short form for
+the user's home directory).</p>
+<blockquote>
+<p>Before creating the registry, add the following line at the end of your hosts
+file if you haven't already: <code>127.0.0.1 kc</code>. The hosts file is <code>/etc/hosts</code> on
+Linux/MacOS and on Windows, it is <code>c:\windows\system32\drivers\etc\hosts</code>.</p>
+</blockquote>
+<pre><code class="language-sh"># Create and move into the ~/Registries/example directory
+$ mkdir -p ~/Registries/example
+$ cd ~/Registries/example
+# Create a registry instance
+$ registry init
+</code></pre>
+<blockquote>
+<p>Don't copy-paste the <code>$</code> signs, they indicate that what follows is a terminal
+command</p>
+</blockquote>
+<p>This will setup and start a registry using Docker on your machine.</p>
+<blockquote>
+<p>The default setup files used to create a registry can be found
+<a href="https://github.com/gamemaker1/registry-setup-files">here</a>. If you wish to use
+a different set of files to setup your registry, specify the remote git repo's
+URL using the <code>config</code> command before running the <code>init</code> command:</p>
+<pre><code>$ registry config setup.repo &lt;url-to-setup-repo&gt;
+</code></pre>
+<p>You will also need to change the container names and images if you have
+changed them in <code>docker-compose.yaml</code>:</p>
+<pre><code>$ registry config container.images &lt;comma-separated-image-names&gt;
+$ registry config container.names &lt;comma-separated-container-names&gt;
+</code></pre>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="understanding-schemas"><a class="header" href="#understanding-schemas">Understanding Schemas</a></h1>
+<p>Each registry can store data as entities. The example registry we setup using
+CLI already has two types of entities: <code>Teacher</code> and <code>Student</code>. To view the
+schemas, run the following in the directory you setup the registry:</p>
+<pre><code class="language-sh">$ cat schemas/student.json
+$ cat schemas/teacher.json
+</code></pre>
+<blockquote>
+<p>Or you could view the schemas
+<a href="https://github.com/gamemaker1/registry-setup-files/tree/main/schemas">on Github</a>.</p>
+</blockquote>
+<p>A teacher is represented by 5 fields: <code>name</code>, <code>phoneNumber</code>, <code>email</code>, <code>subject</code>
+and <code>school</code>, out of which <code>name</code>, <code>phoneNumber</code>, <code>email</code> and <code>school</code> are
+required fields. <code>subject</code> can be any one of Math, Hindi, English, History,
+Geography, Physics, Chemistry, and Biology.</p>
+<p>A student is represented by 4 fields: <code>name</code>, <code>phoneNumber</code>, <code>email</code>, and
+<code>school</code>, all of which are required fields. When setting <code>school</code> field, you are
+making a 'claim' (i.e., that the student is from the specified school), which
+can be 'attested' (i.e., confirmed to be true) by a teacher from the same
+school.</p>
+<h2 id="next-steps-1"><a class="header" href="#next-steps-1">Next Steps</a></h2>
+<p>Now that you know a bit about schemas, jump straight into
+<a href="guides/../apis/create.html">playing with the Registry API</a>!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="using-the-apis"><a class="header" href="#using-the-apis">Using the APIs</a></h1>
+<p>The following guide walks you through the different Registry APIs using the
+example of a teacher-student registry.</p>
+<h2 id="creating-an-entity"><a class="header" href="#creating-an-entity">Creating An Entity</a></h2>
+<p>We can create entities in the registry using the
+<a href="guides/../apis/create.html">Create Entity API Endpoint</a>.</p>
+<p>To create a <code>Teacher</code> entity named Pranav Agate who teaches Math at UP Public
+School, we would make the following API call:</p>
+<p><strong>cURL</strong></p>
+<pre><code class="language-sh">curl --location \
+	--request 'POST' \
+	--header 'content-type: application/json' \
+	--data-raw '{
+		&quot;name&quot;: &quot;Pranav Agate&quot;,
+		&quot;phoneNumber&quot;: &quot;1234567890&quot;,
+		&quot;email&quot;: &quot;pranav@upps.in&quot;,
+		&quot;subject&quot;: &quot;Math&quot;,
+		&quot;school&quot;: &quot;UP Public School&quot;
+	}' \
+	'http://localhost:8081/api/v1/Teacher/invite'
+</code></pre>
+<p><strong>HTTPie</strong></p>
+<pre><code class="language-sh">echo '{
+	&quot;name&quot;: &quot;Pranav Agate&quot;,
+	&quot;phoneNumber&quot;: &quot;1234567890&quot;,
+	&quot;email&quot;: &quot;pranav@upps.in&quot;,
+	&quot;subject&quot;: &quot;Math&quot;,
+	&quot;school&quot;: &quot;UP Public School&quot;
+}' | http post \
+	'http://localhost:8081/api/v1/Teacher/invite' \
+	'content-type: application/json'
+</code></pre>
+<p>This will store the entity in the registry and return the following object:</p>
+<pre><code class="language-json">{
+	&quot;id&quot;: &quot;open-saber.registry.invite&quot;,
+	&quot;ver&quot;: &quot;1.0&quot;,
+	&quot;ets&quot;: 1634198998956,
+	&quot;params&quot;: {
+		&quot;resmsgid&quot;: &quot;&quot;,
+		&quot;msgid&quot;: &quot;3ee6a76f-d6c8-4262-a7ee-ddbe66fcb127&quot;,
+		&quot;err&quot;: &quot;&quot;,
+		&quot;status&quot;: &quot;SUCCESSFUL&quot;,
+		&quot;errmsg&quot;: &quot;&quot;
+	},
+	&quot;responseCode&quot;: &quot;OK&quot;,
+	&quot;result&quot;: { &quot;Teacher&quot;: { &quot;osid&quot;: &quot;1-9d6099fc-2c01-4714-bceb-55ff28c482f9&quot; } }
+}
+</code></pre>
+<p>Important variables in the response body:</p>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>result.{entity-type}.osid</code></td><td>body</td><td><code>string</code></td><td>The ID of the create entity in the registry, used for retrieval and modification of the entity</td></tr>
+</tbody></table>
+<h2 id="authenticating-as-an-entity"><a class="header" href="#authenticating-as-an-entity">Authenticating As An Entity</a></h2>
+<p>Now that we have created an entity, we can authenticate with the server as that
+entity to perform further operations like retrieving, searching, updating and
+attesting. We can authenticate as entities using the
+<a href="guides/../apis/auth.html">Authenticate As Entity API Endpoint</a>.</p>
+<p>So to authenticate as the <code>Teacher</code> entity we just created, we would make the
+following API call:</p>
+<p><strong>cURL</strong></p>
+<pre><code class="language-sh">curl --location \
+	--request POST \
+	--header 'content-type: application/x-www-form-urlencoded' \
+	--data 'client_id=registry-frontend' \
+	--data 'username=1234567890' \
+	--data 'password=opensaber@123' \
+	--data 'grant_type=password' \
+	'http://kc:8080/auth/realms/sunbird-rc/protocol/openid-connect/token'
+</code></pre>
+<p><strong>HTTPie</strong></p>
+<pre><code class="language-sh">http --form post \
+	'http://kc:8080/auth/realms/sunbird-rc/protocol/openid-connect/token' \
+	'content-type: application/x-www-form-urlencoded' \
+	'client_id=registry-frontend' \
+	'username=1234567890' \
+	'password=opensaber@123' \
+	'grant_type=password'
+</code></pre>
+<blockquote>
+<p>Here, <code>registry-frontend</code> is the preconfigured client we use to make requests
+to keycloak and <code>opensaber@123</code> is the default password for all entities.</p>
+</blockquote>
+<p>This API call should return a JSON object as follows:</p>
+<pre><code class="language-json">{
+	&quot;access_token&quot;: &quot;eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lk...2cSSaBKuB58I2OYDGw&quot;,
+	&quot;expires_in&quot;: 300,
+	&quot;not-before-policy&quot;: 0,
+	&quot;refresh_expires_in&quot;: 1800,
+	&quot;refresh_token&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lk...9HulwVv12bBDUdU_nidZXo&quot;,
+	&quot;scope&quot;: &quot;email profile&quot;,
+	&quot;session_state&quot;: &quot;300f8a46-e430-4fd6-92aa-a2d337d7343e&quot;,
+	&quot;token_type&quot;: &quot;Bearer&quot;
+}
+</code></pre>
+<p>Important variables in the response body:</p>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>access_token</code></td><td>body</td><td><code>string</code></td><td>Access token used to retrieve/update entity</td></tr>
+<tr><td><code>expires_in</code></td><td>body</td><td><code>number</code></td><td>Number of seconds before the access token will be declared invalid</td></tr>
+<tr><td><code>token_type</code></td><td>body</td><td><code>string</code></td><td>Should be <code>Bearer</code>, else we have gotten the wrong token</td></tr>
+<tr><td><code>scope</code></td><td>body</td><td><code>string</code></td><td>Using this token, what information we can access about the entity</td></tr>
+</tbody></table>
+<h2 id="retrieving-an-entity"><a class="header" href="#retrieving-an-entity">Retrieving An Entity</a></h2>
+<p>We can retrieve entities in the registry using the
+<a href="guides/../apis/retrieve.html">Retrieve Entity API Endpoint</a>.</p>
+<p>So to retrieve the entity we created earlier, we would make the following
+request:</p>
+<p><strong>cURL</strong></p>
+<pre><code class="language-sh">curl --location \
+	--request GET \
+	--header 'content-type: application/json' \
+	--header 'authorization: bearer {access-token}' \
+	'http://localhost:8081/api/v1/Teacher/{id}'
+</code></pre>
+<p><strong>HTTPie</strong></p>
+<pre><code class="language-sh">http get \
+	'http://localhost:8081/api/v1/Teacher/{id}' \
+	'authorization: bearer {access-token}'
+</code></pre>
+<blockquote>
+<p>Replace the <code>{id}</code> above with the entity's <code>osid</code> you saved from the create
+entity request. Replace the <code>{access-token}</code> with the <code>Teacher</code> entity's
+access token from the authentication step.</p>
+</blockquote>
+<p>This will return the entity's JSON representation as follows:</p>
+<pre><code class="language-json">{
+	&quot;phoneNumber&quot;: &quot;1234567890&quot;,
+	&quot;school&quot;: &quot;UP Public School&quot;,
+	&quot;subject&quot;: &quot;Math&quot;,
+	&quot;name&quot;: &quot;Pranav Agate&quot;,
+	&quot;osid&quot;: &quot;{id}&quot;,
+	&quot;osOwner&quot;: [&quot;{owner-id}&quot;],
+	&quot;_osState/school&quot;: &quot;DRAFT&quot;
+}
+</code></pre>
+<p>Important variables in the response body:</p>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>osOwner</code></td><td>body</td><td><code>string</code></td><td>User ID of the entity in Keycloak.</td></tr>
+<tr><td><code>_osState/{field}</code></td><td>body</td><td><code>string</code></td><td>State of an attestable field. Can be <code>DRAFT</code> (when it has not been sent for attestation), <code>ATTESTATION_REQUESTED</code> (when sent for attestation), <code>PUBLISHED</code> (when successfully attested) and <code>REJECTED</code> (when rejected by the attestor)</td></tr>
+</tbody></table>
+<h2 id="updating-an-entity"><a class="header" href="#updating-an-entity">Updating An Entity</a></h2>
+<p>We can update entities in the registry using the
+<a href="guides/../apis/update.html">Update Entity API Endpoint</a>.</p>
+<p>So to update the subject our <code>Teacher</code> entity Pranav Agate teaches to <code>Biology</code>,
+we would make the following API call:</p>
+<p><strong>cURL</strong></p>
+<pre><code class="language-sh">curl --location \
+	--request 'PUT' \
+	--header 'content-type: application/json' \
+	--header 'authorization: bearer {access-token}' \
+	--data-raw '{
+		&quot;name&quot;: &quot;Pranav Agate&quot;,
+		&quot;phoneNumber&quot;: &quot;1234567890&quot;,
+		&quot;email&quot;: &quot;pranav@upps.in&quot;,
+		&quot;subject&quot;: &quot;Biology&quot;,
+		&quot;school&quot;: &quot;UP Public School&quot;
+	}' \
+	'http://localhost:8081/api/v1/Teacher/{id}'
+</code></pre>
+<p><strong>HTTPie</strong></p>
+<pre><code class="language-sh">echo '{
+	&quot;name&quot;: &quot;Pranav Agate&quot;,
+	&quot;phoneNumber&quot;: &quot;1234567890&quot;,
+	&quot;email&quot;: &quot;pranav@upps.in&quot;,
+	&quot;subject&quot;: &quot;Biology&quot;,
+	&quot;school&quot;: &quot;UP Public School&quot;
+}' | http put \
+	'http://localhost:8081/api/v1/Teacher/{id}' \
+	'content-type: application/json' \
+	'authorization: bearer {access-token}'
+</code></pre>
+<blockquote>
+<p>Replace the <code>{id}</code> above with the entity's <code>osid</code> you saved from the create
+entity request. Replace the <code>{access-token}</code> with the <code>Teacher</code> entity's
+access token from the authentication step.</p>
+</blockquote>
+<blockquote>
+<p>We need to send the whole entity and not just the updated fields because that
+is how RESTful APIs work. A PUT call should replace the existing record in the
+database with the new object as-is. To know more about this, take a look at
+the accepted answer on
+<a href="https://stackoverflow.com/questions/28459418/use-of-put-vs-patch-methods-in-rest-api-real-life-scenarios">this SO question</a>.</p>
+</blockquote>
+<p>This will update the entity in the registry and return the following object:</p>
+<pre><code class="language-json">{
+	&quot;id&quot;: &quot;open-saber.registry.update&quot;,
+	&quot;ver&quot;: &quot;1.0&quot;,
+	&quot;ets&quot;: 1634371946769,
+	&quot;params&quot;: {
+		&quot;resmsgid&quot;: &quot;&quot;,
+		&quot;msgid&quot;: &quot;d51e6e6a-027d-4a42-84bb-2ce00e31d993&quot;,
+		&quot;err&quot;: &quot;&quot;,
+		&quot;status&quot;: &quot;SUCCESSFUL&quot;,
+		&quot;errmsg&quot;: &quot;&quot;
+	},
+	&quot;responseCode&quot;: &quot;OK&quot;
+}
+</code></pre>
+<h2 id="making-a-claim"><a class="header" href="#making-a-claim">Making A Claim</a></h2>
+<p>To make a claim, we can use the <a href="guides/../apis/claim.html">Claim API Endpoint</a>.</p>
+<p>First, let us create a <code>Student</code> entity named Prashant Joshi who also goes to UP
+Public School:</p>
+<p><strong>cURL</strong></p>
+<pre><code class="language-sh">curl --location \
+	--request 'POST' \
+	--header 'content-type: application/json' \
+	--data-raw '{
+		&quot;name&quot;: &quot;Prashant Joshi&quot;,
+		&quot;phoneNumber&quot;: &quot;9876543210&quot;,
+		&quot;email&quot;: &quot;prashant@upps.in&quot;,
+		&quot;school&quot;: &quot;UP Public School&quot;
+	}' \
+	'http://localhost:8081/api/v1/Student/invite'
+</code></pre>
+<p><strong>HTTPie</strong></p>
+<pre><code class="language-sh">echo '{
+	&quot;name&quot;: &quot;Prashant Joshi&quot;,
+	&quot;phoneNumber&quot;: &quot;9876543210&quot;,
+	&quot;email&quot;: &quot;prashant@upps.in&quot;,
+	&quot;school&quot;: &quot;UP Public School&quot;
+}' | http post \
+	'http://localhost:8081/api/v1/Student/invite' \
+	'content-type: application/json'
+</code></pre>
+<p>Next, we can get an access token for Prashant by making a POST request to the
+authentication server. See the
+<a href="guides/using-the-apis.html#authenticating-as-an-entity">Authenticating As An Entity</a> section to know how
+to do that.</p>
+<p>Then, we can send the claim (that Prashant is a student at UP Public School) for
+attestation by making the following request:</p>
+<pre><code class="language-sh">curl --location \
+	--request 'PUT' \
+	--header 'content-type: application/json' \
+	--header 'authorization: bearer {access-token}' \
+	--data-raw '&quot;UP Public School&quot;' \
+	'http://localhost:8081/api/v1/Student/{id}/school?send=true'
+</code></pre>
+<p><strong>HTTPie</strong></p>
+<pre><code class="language-sh">echo '&quot;UP Public School&quot;' | http put \
+	'http://localhost:8081/api/v1/Student/{id}/school' \
+	'content-type: application/json' \
+	'authorization: bearer {access-token}' \
+	'send==true'
+</code></pre>
+<blockquote>
+<p>Replace the <code>{id}</code> above with the entity's <code>osid</code> you saved from the create
+entity request. Replace the <code>{access-token}</code> with the <code>Student</code> entity's
+access token from the authentication step.</p>
+</blockquote>
+<p>This will send the claim for attestation and return the following object:</p>
+<pre><code class="language-json">{
+	&quot;id&quot;: &quot;open-saber.registry.update&quot;,
+	&quot;ver&quot;: &quot;1.0&quot;,
+	&quot;ets&quot;: 1634371946769,
+	&quot;params&quot;: {
+		&quot;resmsgid&quot;: &quot;&quot;,
+		&quot;msgid&quot;: &quot;ksi38Dsl-8dIw-492j-6vlS-84KRe0Csop35&quot;,
+		&quot;err&quot;: &quot;&quot;,
+		&quot;status&quot;: &quot;SUCCESSFUL&quot;,
+		&quot;errmsg&quot;: &quot;&quot;
+	},
+	&quot;responseCode&quot;: &quot;OK&quot;
+}
+</code></pre>
+<p>If you retrieve the <code>Student</code> entity by following the
+<a href="guides/using-the-apis.html#retrieving-an-entity">Retrieving An Entity section</a>, you will get the
+following object in response:</p>
+<pre><code class="language-json">{
+	&quot;email&quot;: &quot;prashant@upps.in&quot;,
+	&quot;name&quot;: &quot;Prashant Joshi&quot;,
+	&quot;phoneNumber&quot;: &quot;9876543210&quot;,
+	&quot;school&quot;: &quot;UP Public School&quot;,
+	&quot;osid&quot;: &quot;{id}&quot;,
+	&quot;osOwner&quot;: [&quot;{owner-id}&quot;],
+	&quot;_osClaimId/school&quot;: &quot;{claim-id}&quot;,
+	&quot;_osState/school&quot;: &quot;ATTESTATION_REQUESTED&quot;
+}
+</code></pre>
+<p>Important variables in the response body:</p>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>osOwner</code></td><td>body</td><td><code>string</code></td><td>User ID of the entity in Keycloak.</td></tr>
+<tr><td><code>_osState/{field}</code></td><td>body</td><td><code>string</code></td><td>State of an attestable field. Can be <code>DRAFT</code> (when it has not been sent for attestation), <code>ATTESTATION_REQUESTED</code> (when sent for attestation), <code>PUBLISHED</code> (when successfully attested) and <code>REJECTED</code> (when rejected by the attestor)</td></tr>
+<tr><td><code>_osClaimId/{field}</code></td><td>body</td><td><code>string</code></td><td>ID of the claim made on a field, required when attesting the claim.</td></tr>
+</tbody></table>
+<h2 id="attestingreject-a-claim"><a class="header" href="#attestingreject-a-claim">Attesting/Reject A Claim</a></h2>
+<p>We can attest/reject an entity's claim using the
+<a href="guides/../api/attest.html">Attest Claim API Endpoint</a>.</p>
+<p>So to attest the claim we made in the previous section (that Prashant is a
+student at UP Public School), we make the following request:</p>
+<p><strong>cURL</strong></p>
+<pre><code class="language-sh">curl --location \
+	--request 'POST' \
+	--header 'content-type: application/json' \
+	--header 'authorization: bearer {access-token}' \
+	--data-raw '{
+		&quot;action&quot;: &quot;GRANT_CLAIM&quot;
+	}' \
+	'http://localhost:8081/api/v1/Teacher/claims/{claim-id}/attest'
+</code></pre>
+<p><strong>HTTPie</strong></p>
+<pre><code class="language-sh">echo '{
+	&quot;action&quot;: &quot;GRANT_CLAIM&quot;
+}' | http post \
+	'http://localhost:8081/api/v1/Teacher/claims/{claim-id}/attest' \
+	'content-type: application/json' \
+	'authorization: bearer {access-token}'
+</code></pre>
+<blockquote>
+<p>Replace the <code>{claim-id}</code> above with the <code>_osClaimId/school</code> you saved from the
+make a claim request. Replace the <code>{access-token}</code> with the <code>Teacher</code> entity's
+access token from the authentication step. Replace <code>GRANT_CLAIM</code> with
+<code>REJECT_CLAIM</code> to reject the claim instead.</p>
+</blockquote>
+<p>This will attest/reject the claim and return a blank HTTP 200 response.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-your-own-schemas"><a class="header" href="#creating-your-own-schemas">Creating Your Own Schemas</a></h1>
+<p>Each registry can store data as entities. An entity is defined by its schema.
+This guide demonstrates how to create a schema to define your own entity.</p>
+<p>The following is an example schema for a student entity. The comments should
+guide you as to which fields are required, and what fields should be adjusted as
+per your needs.</p>
+<pre><code class="language-json">// -- file: student.json
+// -- note: real schema files do not allow inline comments, remove them all incase you are copying and pasting this example.
+
+{
+	// This must be at the top of all schemas. See http://json-schema.org/understanding-json-schema/reference/schema.html#schema
+	&quot;$schema&quot;: &quot;http://json-schema.org/draft-07/schema&quot;,
+	// This is a schema object...
+	&quot;type&quot;: &quot;object&quot;,
+	// ...that declares a Student entity
+	&quot;properties&quot;: { &quot;Student&quot;: { &quot;$ref&quot;: &quot;#/definitions/Student&quot; } },
+	// The actual definition of the Student entity
+	&quot;definitions&quot;: {
+		// You can declare multiple entities in one schema file, just make sure you
+		// add the entity name in the `properties` field above
+		&quot;Student&quot;: {
+			// The path to the declaration in the schema entity
+			&quot;$id&quot;: &quot;#/properties/Student&quot;,
+			// A Student is an object...
+			&quot;type&quot;: &quot;object&quot;,
+			// ...with the following required fields
+			&quot;required&quot;: [&quot;name&quot;, &quot;phoneNumber&quot;, &quot;email&quot;, &quot;school&quot;],
+			// The `phoneNumber` field must be unique across all Student entities
+			&quot;uniqueIndexFields&quot;: [&quot;phoneNumber&quot;],
+			// The fields a Student entity can have
+			&quot;properties&quot;: {
+				// Full name (string)
+				&quot;name&quot;: { &quot;type&quot;: &quot;string&quot; },
+				// Phone number (string)
+				&quot;phoneNumber&quot;: { &quot;type&quot;: &quot;string&quot; },
+				// Email (string)
+				&quot;email&quot;: { &quot;type&quot;: &quot;string&quot; },
+				// What school they are going to (string)
+				&quot;school&quot;: { &quot;type&quot;: &quot;string&quot; }
+			}
+		}
+	},
+	// Sunbird-RC specific configuration
+	&quot;_osConfig&quot;: {
+		// The following field is only needed if the entity is a human that can
+		// login, grant consent, and manually attest claims. It will (usually) not
+		// be needed for something like a book or toy entity.
+		// The following fields are used to create a corresponding user in Keycloak,
+		// the authentication service used by Sunbird RC.
+		&quot;ownershipAttributes&quot;: [
+			{
+				// The path to the field to consider the email of the entity
+				&quot;email&quot;: &quot;/email&quot;,
+				// The path to the field to consider the phone number of the entity
+				&quot;mobile&quot;: &quot;/phoneNumber&quot;,
+				// The path to the field to consider as unique ID of the entity
+				&quot;userId&quot;: &quot;/phoneNumber&quot;
+			}
+		],
+		// The following fields are only needed if you are using the claim-attest
+		// flow for certain fields of the entity
+		// Which fields' values must be attested before they can be considered valid
+		&quot;attestationAttributes&quot;: [&quot;school&quot;],
+		&quot;attestationPolicies&quot;: [
+			// For each field mentioned in the `attestationAttributes` field, add
+			// an object like so:
+			{
+				// The name of the field
+				&quot;property&quot;: &quot;school&quot;,
+				// The path to the field (dot-separate fields if the field is nested, $
+				// is the root of the entity)
+				&quot;paths&quot;: [&quot;$.school&quot;],
+				// Set the attestation type to `MANUAL` if another entity needs to login
+				// and verify the claim
+				&quot;type&quot;: &quot;MANUAL&quot;,
+				// What type of entity should be able to attest the claim
+				&quot;attestorEntity&quot;: &quot;Teacher&quot;,
+				// The condition for a certain entity to be able to attest the claim. In
+				// this case, the attestor Teacher entity must be in the same school as
+				// the Student entity to attest the claim
+				&quot;conditions&quot;: &quot;(ATTESTOR#$.school#.contains(REQUESTER#$.school#))&quot;
+			}
+		]
+	}
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="developer-setup-guide"><a class="header" href="#developer-setup-guide">Developer Setup Guide</a></h1>
+<h2 id="prerequisites-1"><a class="header" href="#prerequisites-1">Prerequisites</a></h2>
+<h3 id="terminal-emulator-1"><a class="header" href="#terminal-emulator-1">Terminal emulator</a></h3>
+<p>Linux and MacOS will have a terminal installed already. For Windows, it is
+recommended that you use <code>git-bash</code>, which you can install from
+<a href="https://git-scm.com/download/win">here</a>.</p>
+<p>Type <code>echo Hi</code> in the terminal once it is installed. If installed correctly, you
+should see <code>Hi</code> appear when you hit enter.</p>
+<h3 id="git-1"><a class="header" href="#git-1">Git</a></h3>
+<p>Installation instructions for Git can be found
+<a href="https://github.com/git-guides/install-git">here</a>.</p>
+<p>Run <code>git --version</code> in the terminal to check if <code>git</code> has been installed
+correctly:</p>
+<pre><code class="language-sh">$ git --version
+git version 2.33.0
+</code></pre>
+<h3 id="java"><a class="header" href="#java">Java</a></h3>
+<p>Installation instructions for Java 8 can be found
+<a href="https://docs.oracle.comjavase/8/docs/technotes/guides/install/install_overview.html">here</a>.</p>
+<p>Run <code>java</code> in the terminal to check if <code>java</code> has been installed correctly:</p>
+<pre><code class="language-sh">$ java
+Usage: java [-options] class [args...]
+...
+</code></pre>
+<h3 id="nodejs-only-needed-for-the-registry-cli"><a class="header" href="#nodejs-only-needed-for-the-registry-cli">NodeJS (Only needed for the Registry CLI)</a></h3>
+<p>Installation instructions for NodeJS can be found
+<a href="https://nodejs.org/en/download/package-manager/">here</a>.</p>
+<p>Run <code>node -v</code> in the terminal to check if <code>node</code> has been installed correctly:</p>
+<pre><code class="language-sh">$ node -v
+v16.11.0
+</code></pre>
+<h3 id="docker-1"><a class="header" href="#docker-1">Docker</a></h3>
+<p>Installation instructions for Docker can be found
+<a href="https://docs.docker.com/engine/install/">here</a>.</p>
+<p>Run <code>docker -v</code> in terminal to check if <code>docker</code> has been installed correctly:</p>
+<pre><code class="language-sh">$ docker -v
+Docker version 20.10.9, build c2ea9bc90b
+</code></pre>
+<h3 id="docker-compose-1"><a class="header" href="#docker-compose-1">Docker Compose</a></h3>
+<p>Installation instructions can be found
+<a href="https://docs.docker.com/engine/install/">here</a>.</p>
+<p>Run <code>docker-compose -v</code> in terminal to check if <code>docker-compose</code> has been
+installed correctly:</p>
+<pre><code class="language-sh">$ docker-compose -v
+Docker Compose version 2.0.1
+</code></pre>
+<h2 id="downloading-the-source-code"><a class="header" href="#downloading-the-source-code">Downloading The Source Code</a></h2>
+<p>Run the following in terminal to download the registry's source code:</p>
+<pre><code class="language-sh">$ git clone https://github.com/sunbird-rc/sunbird-rc-core.git sunbird-rc/core
+</code></pre>
+<p>Move into the folder by typing:</p>
+<pre><code class="language-sh">$ cd sunbird-rc/core
+</code></pre>
+<h2 id="compiling-the-registry"><a class="header" href="#compiling-the-registry">Compiling The Registry</a></h2>
+<p>Run the <code>configure-dependencies.sh</code> script in the root of the repo as follows:</p>
+<pre><code class="language-sh">$ sh configure-dependencies.sh
+</code></pre>
+<p>Then compile the registry (this will take some time when you are running it for
+the first time):</p>
+<pre><code class="language-sh">$ cd java
+$ ./mvnw clean install -DskipTests
+$ cd ..
+</code></pre>
+<p>This should create a JAR file in the <code>java/registry/target</code> folder.</p>
+<h2 id="configuring-schemas"><a class="header" href="#configuring-schemas">Configuring Schemas</a></h2>
+<p>Place all your schema files in the
+<code>java/registry/src/main/resources/public/_schemas/</code> folder.</p>
+<p>A sample set of schemas for a simple teacher-student registry can be found
+<a href="https://github.com/gamemaker1/registry-setup-files/tree/main/schemas/">here</a>.
+You can learn how to write your own schemas by following
+<a href="guides/schema-declaration.html">this guide</a>.</p>
+<h2 id="configure-and-start-dependent-services"><a class="header" href="#configure-and-start-dependent-services">Configure And Start Dependent Services</a></h2>
+<p>Run the following in terminal to download
+<a href="https://github.com/gamemaker1/registry-setup-files/blob/main/docker-compose.yaml">this</a>
+Docker Compose file:</p>
+<pre><code class="language-sh">$ curl https://raw.githubusercontent.com/gamemaker1/registry-setup-files/main/docker-compose.yaml &gt; docker-compose.yml
+</code></pre>
+<p>Then edit your hosts file (<code>/etc/hosts</code> on Linux/MacOS,
+<code>C:\Windows\System32\Drivers\etc\hosts</code> on Windows) and add the following line
+at the end:</p>
+<pre><code>127.0.0.1 kc
+</code></pre>
+<p>To download a minimal keycloak configuration, run the following:</p>
+<pre><code class="language-sh">$ curl https://raw.githubusercontent.com/gamemaker1/registry-setup-files/main/imports/realm-export.json &gt; import/realm-export.json
+</code></pre>
+<p>Then start Keycloak (<code>kc</code>), Postgres (<code>db</code>), Elastic Search (<code>es</code>) and the
+Claims Service (<code>cs</code>) by running the following command:</p>
+<pre><code class="language-sh">$ docker-compose up kc db es cs
+</code></pre>
+<h2 id="configuring-the-registry"><a class="header" href="#configuring-the-registry">Configuring The Registry</a></h2>
+<p>Before we can start the registry, we need to regenerate and retrieve the client
+secret for the <code>admin-api</code> client in Keycloak. To do that, follow these steps:</p>
+<ul>
+<li>Go to http://localhost:8080.</li>
+<li>Login using the username <code>admin</code> and password <code>admin</code>.</li>
+<li>Change the current realm from <code>Master</code> by hovering over <code>Master</code> in the top
+left and clicking <code>Sunbird RC</code> when it appears.</li>
+<li>Click <code>Clients</code> in the panel on the left.</li>
+<li>Click <code>admin-api</code>.</li>
+<li>Click the <code>Credentials</code> tab.</li>
+<li>Under <code>Client Secret</code>, click <code>Regenerate Secret</code>. Copy the secret that you see
+in the box and paste it in the <code>docker-compose.yml</code> file in place of
+<code>INSERT_SECRET_HERE</code> on line 42.</li>
+</ul>
+<h2 id="running-the-registry"><a class="header" href="#running-the-registry">Running The Registry</a></h2>
+<p>Once you have completed all the above steps, run the registry using the
+following command:</p>
+<pre><code class="language-sh">$ java -jar java/registry/target/registry.jar
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-an-entity-1"><a class="header" href="#creating-an-entity-1">Creating An Entity</a></h1>
+<p>To create an entity, we need to make the following HTTP request:</p>
+<h2 id="request"><a class="header" href="#request">Request</a></h2>
+<pre><code class="language-http">POST /api/v1/{entity-type}/invite
+</code></pre>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>content-type</code></td><td>header</td><td><code>string</code></td><td>Set to <code>application/json</code></td></tr>
+<tr><td><code>entity-type</code></td><td>path</td><td><code>string</code></td><td>The type of entity to create</td></tr>
+<tr><td><code>...</code></td><td>body</td><td><code>object</code></td><td>The entity's data</td></tr>
+</tbody></table>
+<h2 id="response"><a class="header" href="#response">Response</a></h2>
+<p>This will store the entity in the registry and return the following object:</p>
+<pre><code class="language-json">{
+	&quot;id&quot;: &quot;open-saber.registry.invite&quot;,
+	&quot;ver&quot;: &quot;1.0&quot;,
+	&quot;ets&quot;: 1634198998956,
+	&quot;params&quot;: {
+		&quot;resmsgid&quot;: &quot;&quot;,
+		&quot;msgid&quot;: &quot;3ee6a76f-d6c8-4262-a7ee-ddbe66fcb127&quot;,
+		&quot;err&quot;: &quot;&quot;,
+		&quot;status&quot;: &quot;SUCCESSFUL&quot;,
+		&quot;errmsg&quot;: &quot;&quot;
+	},
+	&quot;responseCode&quot;: &quot;OK&quot;,
+	&quot;result&quot;: { &quot;Teacher&quot;: { &quot;osid&quot;: &quot;1-9d6099fc-2c01-4714-bceb-55ff28c482f9&quot; } }
+}
+</code></pre>
+<p>Important variables in the response body:</p>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>result.{entity-type}.osid</code></td><td>body</td><td><code>string</code></td><td>The ID of the create entity in the registry, used for retrieval and modification of the entity</td></tr>
+</tbody></table>
+<h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
+<p>So to create a <code>Teacher</code> entity named Pranav Agate who teaches Math at UP Public
+School, we would make the following API call:</p>
+<h3 id="curl"><a class="header" href="#curl">cURL</a></h3>
+<pre><code class="language-sh">curl --location \
+	--request 'POST' \
+	--header 'content-type: application/json' \
+	--data-raw '{
+		...claims
+	}' \
+	'{registry-url}/api/v1/{entity-type}/invite'
+</code></pre>
+<h3 id="httpie"><a class="header" href="#httpie">HTTPie</a></h3>
+<pre><code class="language-sh">echo '{
+	...claims
+}' | http post \
+	'{registry-url}/api/v1/{entity-type}/invite' \
+	'content-type: application/json'
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="authenticating-as-an-entity-1"><a class="header" href="#authenticating-as-an-entity-1">Authenticating As An Entity</a></h1>
+<p>We can authenticate with the registry as a particular entity to perform
+operations like retrieving, searching, updating and attesting.</p>
+<h2 id="request-1"><a class="header" href="#request-1">Request</a></h2>
+<p>To authenticate as an entity, we need to make the following request:</p>
+<pre><code class="language-http">POST /auth/realms/sunbird-rc/protocol/openid-connect/token
+</code></pre>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>content-type</code></td><td>header</td><td><code>string</code></td><td>Set to <code>application/x-www-form-urlencoded</code></td></tr>
+<tr><td><code>client_id</code></td><td>body</td><td><code>string</code></td><td>Set to <code>registry-frontend</code></td></tr>
+<tr><td><code>username</code></td><td>body</td><td><code>string</code></td><td>The <code>_osConfig.ownershipAttributes.userId</code> of the entity according to the schema</td></tr>
+<tr><td><code>password</code></td><td>body</td><td><code>string</code></td><td>Set to <code>opensaber@123</code> (default password, specified in registry config/docker compose file)</td></tr>
+<tr><td><code>grant_type</code></td><td>body</td><td><code>string</code></td><td>Set to <code>password</code></td></tr>
+</tbody></table>
+<h2 id="response-1"><a class="header" href="#response-1">Response</a></h2>
+<p>This API call should return a JSON object as follows:</p>
+<pre><code class="language-json">{
+	&quot;access_token&quot;: &quot;eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lk...2cSSaBKuB58I2OYDGw&quot;,
+	&quot;expires_in&quot;: 300,
+	&quot;not-before-policy&quot;: 0,
+	&quot;refresh_expires_in&quot;: 1800,
+	&quot;refresh_token&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lk...9HulwVv12bBDUdU_nidZXo&quot;,
+	&quot;scope&quot;: &quot;email profile&quot;,
+	&quot;session_state&quot;: &quot;300f8a46-e430-4fd6-92aa-a2d337d7343e&quot;,
+	&quot;token_type&quot;: &quot;Bearer&quot;
+}
+</code></pre>
+<p>Important variables in the response body:</p>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>access_token</code></td><td>body</td><td><code>string</code></td><td>Access token used to retrieve/update entity</td></tr>
+<tr><td><code>expires_in</code></td><td>body</td><td><code>number</code></td><td>Number of seconds before the access token will be declared invalid</td></tr>
+<tr><td><code>token_type</code></td><td>body</td><td><code>string</code></td><td>Should be <code>Bearer</code>, else we have gotten the wrong token</td></tr>
+<tr><td><code>scope</code></td><td>body</td><td><code>string</code></td><td>Using this token, what information we can access about the entity</td></tr>
+</tbody></table>
+<h2 id="usage-1"><a class="header" href="#usage-1">Usage</a></h2>
+<h3 id="curl-1"><a class="header" href="#curl-1">cURL</a></h3>
+<pre><code class="language-sh">curl --location \
+	--request POST \
+	--header 'content-type: application/x-www-form-urlencoded' \
+	--data 'client_id=registry-frontend' \
+	--data 'username={username}' \
+	--data 'password=opensaber@123' \
+	--data 'grant_type=password' \
+	'http://{keycloak-url}/auth/realms/sunbird-rc/protocol/openid-connect/token'
+</code></pre>
+<h3 id="httpie-1"><a class="header" href="#httpie-1">HTTPie</a></h3>
+<pre><code class="language-sh">http --form post \
+	'http://{keycloak-url}/auth/realms/sunbird-rc/protocol/openid-connect/token' \
+	'content-type: application/x-www-form-urlencoded' \
+	'client_id=registry-frontend' \
+	'username={username}' \
+	'password=opensaber@123' \
+	'grant_type=password'
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="retrieving-an-entity-1"><a class="header" href="#retrieving-an-entity-1">Retrieving An Entity</a></h1>
+<h2 id="request-2"><a class="header" href="#request-2">Request</a></h2>
+<p>To retrieve an entity, we need to make the following HTTP request:</p>
+<pre><code class="language-http">GET /api/v1/{entity-type}/{id} HTTP/1.1
+</code></pre>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>content-type</code></td><td>header</td><td><code>string</code></td><td>Set to <code>application/json</code></td></tr>
+<tr><td><code>authorization</code></td><td>header</td><td><code>string</code></td><td>Set to <code>bearer {access-token}</code> (substitute the access token for the one retrieved in the authentication step )</td></tr>
+<tr><td><code>entity-type</code></td><td>path</td><td><code>string</code></td><td>The type of entity to retrieve</td></tr>
+<tr><td><code>id</code></td><td>path</td><td><code>string</code></td><td>The ID of the entity to retrieve</td></tr>
+</tbody></table>
+<h2 id="response-2"><a class="header" href="#response-2">Response</a></h2>
+<p>This will return the entity's JSON representation as follows:</p>
+<pre><code class="language-json">{
+	&quot;phoneNumber&quot;: &quot;1234567890&quot;,
+	&quot;school&quot;: &quot;UP Public School&quot;,
+	&quot;subject&quot;: &quot;Math&quot;,
+	&quot;name&quot;: &quot;Pranav Agate&quot;,
+	&quot;osid&quot;: &quot;{id}&quot;,
+	&quot;osOwner&quot;: [&quot;{owner-id}&quot;],
+	&quot;_osState/school&quot;: &quot;DRAFT&quot;
+}
+</code></pre>
+<p>Important variables in the response body:</p>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>osOwner</code></td><td>body</td><td><code>string</code></td><td>User ID of the entity in Keycloak.</td></tr>
+<tr><td><code>_osState/{field}</code></td><td>body</td><td><code>string</code></td><td>State of an attestable field. Can be <code>DRAFT</code> (when it has not been sent for attestation), <code>ATTESTATION_REQUESTED</code> (when sent for attestation), <code>PUBLISHED</code> (when successfully attested) and <code>REJECTED</code> (when rejected by the attestor)</td></tr>
+</tbody></table>
+<h2 id="usage-2"><a class="header" href="#usage-2">Usage</a></h2>
+<h3 id="curl-2"><a class="header" href="#curl-2">cURL</a></h3>
+<pre><code class="language-sh">curl --location \
+	--request GET \
+	--header 'content-type: application/json' \
+	--header 'authorization: bearer {access-token}' \
+	'{registry-url}/api/v1/{entity-type}/{id}'
+</code></pre>
+<h3 id="httpie-2"><a class="header" href="#httpie-2">HTTPie</a></h3>
+<pre><code class="language-sh">http get \
+	'{registry-url}/api/v1/{entity-type}/{id}' \
+	'authorization: bearer {access-token}'
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="update-an-entity"><a class="header" href="#update-an-entity">Update An Entity</a></h1>
+<p>To update an entity, we need to make the following HTTP request:</p>
+<h2 id="request-3"><a class="header" href="#request-3">Request</a></h2>
+<pre><code class="language-http">PUT /api/v1/{entity-type}/{id}
+</code></pre>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>content-type</code></td><td>header</td><td><code>string</code></td><td>Set to <code>application/json</code></td></tr>
+<tr><td><code>entity-type</code></td><td>path</td><td><code>string</code></td><td>The type of entity to modify</td></tr>
+<tr><td><code>id</code></td><td>id</td><td><code>string</code></td><td>The ID of entity to modify</td></tr>
+<tr><td><code>...</code></td><td>body</td><td><code>object</code></td><td>The entity's data</td></tr>
+</tbody></table>
+<h2 id="response-3"><a class="header" href="#response-3">Response</a></h2>
+<p>This will update the entity in the registry and return the following object:</p>
+<pre><code class="language-json">{
+	&quot;id&quot;: &quot;open-saber.registry.update&quot;,
+	&quot;ver&quot;: &quot;1.0&quot;,
+	&quot;ets&quot;: 1634371946769,
+	&quot;params&quot;: {
+		&quot;resmsgid&quot;: &quot;&quot;,
+		&quot;msgid&quot;: &quot;d51e6e6a-027d-4a42-84bb-2ce00e31d993&quot;,
+		&quot;err&quot;: &quot;&quot;,
+		&quot;status&quot;: &quot;SUCCESSFUL&quot;,
+		&quot;errmsg&quot;: &quot;&quot;
+	},
+	&quot;responseCode&quot;: &quot;OK&quot;
+}
+</code></pre>
+<h2 id="usage-3"><a class="header" href="#usage-3">Usage</a></h2>
+<h3 id="curl-3"><a class="header" href="#curl-3">cURL</a></h3>
+<pre><code class="language-sh">curl --location \
+	--request 'PUT' \
+	--header 'content-type: application/json' \
+	--header 'authorization: bearer {access-token}' \
+	--data-raw '{
+		...updated-claims
+	}' \
+	'{registry-url}/api/v1/{entity-type}/{id}'
+</code></pre>
+<h3 id="httpie-3"><a class="header" href="#httpie-3">HTTPie</a></h3>
+<pre><code class="language-sh">echo '{
+	...updated-claims
+}' | http put \
+	'{registry-url}/api/v1/{entity-type}/{id}' \
+	'content-type: application/json' \
+	'authorization: bearer {access-token}'
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="make-a-claim"><a class="header" href="#make-a-claim">Make A Claim</a></h1>
+<p>To make a claim and send it for attestation, we need to make the following
+request:</p>
+<h2 id="request-4"><a class="header" href="#request-4">Request</a></h2>
+<pre><code class="language-http">PUT /api/v1/{entity-type}/{id}/{field}?send=true
+</code></pre>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>content-type</code></td><td>header</td><td><code>string</code></td><td>Set to <code>application/json</code></td></tr>
+<tr><td><code>entity-type</code></td><td>path</td><td><code>string</code></td><td>The type of entity to modify</td></tr>
+<tr><td><code>id</code></td><td>path</td><td><code>string</code></td><td>The ID of entity to modify</td></tr>
+<tr><td><code>field</code></td><td>path</td><td><code>string</code></td><td>The field whose value we are sending for attestation</td></tr>
+<tr><td><code>send</code></td><td>query</td><td><code>boolean</code></td><td>Set to <code>true</code></td></tr>
+<tr><td><code>...</code></td><td>body</td><td><code>any</code></td><td>The value of the claim</td></tr>
+</tbody></table>
+<h2 id="response-4"><a class="header" href="#response-4">Response</a></h2>
+<p>This will send the claim for attestation and return the following object:</p>
+<pre><code class="language-json">{
+	&quot;id&quot;: &quot;open-saber.registry.update&quot;,
+	&quot;ver&quot;: &quot;1.0&quot;,
+	&quot;ets&quot;: 1634371946769,
+	&quot;params&quot;: {
+		&quot;resmsgid&quot;: &quot;&quot;,
+		&quot;msgid&quot;: &quot;ksi38Dsl-8dIw-492j-6vlS-84KRe0Csop35&quot;,
+		&quot;err&quot;: &quot;&quot;,
+		&quot;status&quot;: &quot;SUCCESSFUL&quot;,
+		&quot;errmsg&quot;: &quot;&quot;
+	},
+	&quot;responseCode&quot;: &quot;OK&quot;
+}
+</code></pre>
+<p>If you retrieve the entity by the <a href="apis/./retrieve.html">Retrieve Entity API Endpoint</a>,
+you will get the following object in response:</p>
+<pre><code class="language-json">{
+	...claims
+	&quot;osid&quot;: &quot;{id}&quot;,
+	&quot;osOwner&quot;: [&quot;{owner-id}&quot;],
+	&quot;_osClaimId/{field}&quot;: &quot;{claim-id}&quot;,
+	&quot;_osState/{field}&quot;: &quot;ATTESTATION_REQUESTED&quot;
+}
+</code></pre>
+<p>Important variables in the response body:</p>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>osOwner</code></td><td>body</td><td><code>string</code></td><td>User ID of the entity in Keycloak.</td></tr>
+<tr><td><code>_osState/{field}</code></td><td>body</td><td><code>string</code></td><td>State of an attestable field. Can be <code>DRAFT</code> (when it has not been sent for attestation), <code>ATTESTATION_REQUESTED</code> (when sent for attestation), <code>PUBLISHED</code> (when successfully attested) and <code>REJECTED</code> (when rejected by the attestor)</td></tr>
+<tr><td><code>_osClaimId/{field}</code></td><td>body</td><td><code>string</code></td><td>ID of the claim made on a field, required when attesting the claim.</td></tr>
+</tbody></table>
+<h2 id="usage-4"><a class="header" href="#usage-4">Usage</a></h2>
+<h3 id="curl-4"><a class="header" href="#curl-4">cURL</a></h3>
+<pre><code class="language-sh">curl --location \
+	--request 'PUT' \
+	--header 'content-type: application/json' \
+	--header 'authorization: bearer {access-token}' \
+	--data-raw '...field-value' \
+	'{registry-url}/api/v1/{entity-type}/{id}/{field}?send=true'
+</code></pre>
+<h3 id="httpie-4"><a class="header" href="#httpie-4">HTTPie</a></h3>
+<pre><code class="language-sh">echo '...field-value' | http put \
+	'{registry-url}/api/v1/{entity-type}/{id}/{field}' \
+	'content-type: application/json' \
+	'authorization: bearer {access-token}' \
+	'send==true'
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="attestreject-a-claim"><a class="header" href="#attestreject-a-claim">Attest/Reject A Claim</a></h1>
+<p>To attest/reject a claim, we need to make the following request:</p>
+<h2 id="request-5"><a class="header" href="#request-5">Request</a></h2>
+<pre><code class="language-http">POST /api/v1/{attestor-entity-type}/claims/{claim-id}/attest
+</code></pre>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>content-type</code></td><td>header</td><td><code>string</code></td><td>Set to <code>application/json</code></td></tr>
+<tr><td><code>attestor-entity-type</code></td><td>path</td><td><code>string</code></td><td>The attestor entity types</td></tr>
+<tr><td><code>claim-id</code></td><td>path</td><td><code>string</code></td><td>The ID of the claim to attest</td></tr>
+<tr><td><code>action</code></td><td>body</td><td><code>string</code></td><td>Set to <code>GRANT_CLAIM</code> to attest the claim and <code>REJECT_CLAIM</code> to reject the claim</td></tr>
+<tr><td><code>notes</code></td><td>body</td><td><code>string</code></td><td>Attestation related details (optional)</td></tr>
+</tbody></table>
+<h2 id="response-5"><a class="header" href="#response-5">Response</a></h2>
+<p>This will attest/reject the claim and return a blank HTTP 200 response.</p>
+<h2 id="usage-5"><a class="header" href="#usage-5">Usage</a></h2>
+<h3 id="curl-5"><a class="header" href="#curl-5">cURL</a></h3>
+<pre><code class="language-sh">curl --location \
+	--request 'POST' \
+	--header 'content-type: application/json' \
+	--header 'authorization: bearer {access-token}' \
+	--data-raw '{
+		&quot;action&quot;: &quot;GRANT_CLAIM&quot;
+	}' \
+	'{registry-url}/api/v1/{attestor-entity-type}/claims/{claim-id}/attest'
+</code></pre>
+<h3 id="httpie-5"><a class="header" href="#httpie-5">HTTPie</a></h3>
+<pre><code class="language-sh">echo '{
+	&quot;action&quot;: &quot;GRANT_CLAIM&quot;
+}' | http post \
+	'{registry-url}/api/v1/{attestor-entity-type}/claims/{claim-id}/attest' \
+	'content-type: application/json' \
+	'authorization: bearer {access-token}'
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="contributing"><a class="header" href="#contributing">Contributing</a></h1>
+<p>Thank you for your interest in contributing to Sunbird RC. You can contribute in
+any one of the following ways:</p>
+<ul>
+<li><a href="community/contributing.html#report-bugs-request-features">Report Bugs/Request Features</a></li>
+<li><a href="community/contributing.html#contribute-to-the-core-registry">Contribute To The Core Registry</a></li>
+<li><a href="community/contributing.html#contribute-to-the-registry-cli">Contribute To The Registry CLI</a></li>
+<li><a href="community/contributing.html#improve-documentation">Improve Documentation</a></li>
+</ul>
+<h2 id="report-bugsrequest-features"><a class="header" href="#report-bugsrequest-features">Report Bugs/Request Features</a></h2>
+<p>Something not working correctly? Something feels wrong? Or want to see a new
+feature added?
+<a href="https://github.com/sunbird-rc/community/issues/new/choose">Open an issue</a>!</p>
+<h2 id="contribute-to-the-core-registry"><a class="header" href="#contribute-to-the-core-registry">Contribute To The Core Registry</a></h2>
+<p>A contributing guide for the core registry does not exist as of now. PRs adding
+this are welcome!</p>
+<h2 id="contribute-to-the-registry-cli"><a class="header" href="#contribute-to-the-registry-cli">Contribute To The Registry CLI</a></h2>
+<p>Take a look at the
+<a href="https://github.com/sunbird-rc/sunbird-rc-core/blob/main/tools/cli/docs/contributing.md">contributing guide for the Registry CLI</a>
+and jump straight into fixing bugs or adding new features!</p>
+<h2 id="improve-documentation"><a class="header" href="#improve-documentation">Improve Documentation</a></h2>
+<p>The documentation is just a bunch of Markdown files in the
+<a href="https://github.com/sunbird-rc/community/main/tree/latest"><code>community</code></a>. Feel
+free to open a PR that:</p>
+<ul>
+<li>makes the docs clearer/easier to understand</li>
+<li>fixes typos</li>
+<li>adds a section about something new</li>
+<li>adds something that was previously left out of docs</li>
+</ul>
+<h3 id="thanks"><a class="header" href="#thanks">Thanks!</a></h3>
+<p>Thank you for your contribution!!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="contributor-covenant-code-of-conduct"><a class="header" href="#contributor-covenant-code-of-conduct">Contributor Covenant Code of Conduct</a></h1>
+<h2 id="our-pledge"><a class="header" href="#our-pledge">Our Pledge</a></h2>
+<p>We as members, contributors, and leaders pledge to make participation in our
+community a harassment-free experience for everyone, regardless of age, body
+size, visible or invisible disability, ethnicity, sex characteristics, gender
+identity and expression, level of experience, education, socio-economic status,
+nationality, personal appearance, race, caste, color, religion, or sexual
+identity and orientation.</p>
+<p>We pledge to act and interact in ways that contribute to an open, welcoming,
+diverse, inclusive, and healthy community.</p>
+<h2 id="our-standards"><a class="header" href="#our-standards">Our Standards</a></h2>
+<p>Examples of behavior that contributes to a positive environment for our
+community include:</p>
+<ul>
+<li>Demonstrating empathy and kindness toward other people</li>
+<li>Being respectful of differing opinions, viewpoints, and experiences</li>
+<li>Giving and gracefully accepting constructive feedback</li>
+<li>Accepting responsibility and apologizing to those affected by our mistakes,
+and learning from the experience</li>
+<li>Focusing on what is best not just for us as individuals, but for the overall
+community</li>
+</ul>
+<p>Examples of unacceptable behavior include:</p>
+<ul>
+<li>The use of sexualized language or imagery, and sexual attention or advances of
+any kind</li>
+<li>Trolling, insulting or derogatory comments, and personal or political attacks</li>
+<li>Public or private harassment</li>
+<li>Publishing others' private information, such as a physical or email address,
+without their explicit permission</li>
+<li>Other conduct which could reasonably be considered inappropriate in a
+professional setting</li>
+</ul>
+<h2 id="enforcement-responsibilities"><a class="header" href="#enforcement-responsibilities">Enforcement Responsibilities</a></h2>
+<p>Community leaders are responsible for clarifying and enforcing our standards of
+acceptable behavior and will take appropriate and fair corrective action in
+response to any behavior that they deem inappropriate, threatening, offensive,
+or harmful.</p>
+<p>Community leaders have the right and responsibility to remove, edit, or reject
+comments, commits, code, wiki edits, issues, and other contributions that are
+not aligned to this Code of Conduct, and will communicate reasons for moderation
+decisions when appropriate.</p>
+<h2 id="scope"><a class="header" href="#scope">Scope</a></h2>
+<p>This Code of Conduct applies within all community spaces, and also applies when
+an individual is officially representing the community in public spaces.
+Examples of representing our community include using an official e-mail address,
+posting via an official social media account, or acting as an appointed
+representative at an online or offline event.</p>
+<h2 id="enforcement"><a class="header" href="#enforcement">Enforcement</a></h2>
+<p>Instances of abusive, harassing, or otherwise unacceptable behavior may be
+reported to the community leaders responsible for enforcement at [INSERT CONTACT
+METHOD]. All complaints will be reviewed and investigated promptly and fairly.</p>
+<p>All community leaders are obligated to respect the privacy and security of the
+reporter of any incident.</p>
+<h2 id="enforcement-guidelines"><a class="header" href="#enforcement-guidelines">Enforcement Guidelines</a></h2>
+<p>Community leaders will follow these Community Impact Guidelines in determining
+the consequences for any action they deem in violation of this Code of Conduct:</p>
+<h3 id="1-correction"><a class="header" href="#1-correction">1. Correction</a></h3>
+<p><strong>Community Impact</strong>: Use of inappropriate language or other behavior deemed
+unprofessional or unwelcome in the community.</p>
+<p><strong>Consequence</strong>: A private, written warning from community leaders, providing
+clarity around the nature of the violation and an explanation of why the
+behavior was inappropriate. A public apology may be requested.</p>
+<h3 id="2-warning"><a class="header" href="#2-warning">2. Warning</a></h3>
+<p><strong>Community Impact</strong>: A violation through a single incident or series of
+actions.</p>
+<p><strong>Consequence</strong>: A warning with consequences for continued behavior. No
+interaction with the people involved, including unsolicited interaction with
+those enforcing the Code of Conduct, for a specified period of time. This
+includes avoiding interactions in community spaces as well as external channels
+like social media. Violating these terms may lead to a temporary or permanent
+ban.</p>
+<h3 id="3-temporary-ban"><a class="header" href="#3-temporary-ban">3. Temporary Ban</a></h3>
+<p><strong>Community Impact</strong>: A serious violation of community standards, including
+sustained inappropriate behavior.</p>
+<p><strong>Consequence</strong>: A temporary ban from any sort of interaction or public
+communication with the community for a specified period of time. No public or
+private interaction with the people involved, including unsolicited interaction
+with those enforcing the Code of Conduct, is allowed during this period.
+Violating these terms may lead to a permanent ban.</p>
+<h3 id="4-permanent-ban"><a class="header" href="#4-permanent-ban">4. Permanent Ban</a></h3>
+<p><strong>Community Impact</strong>: Demonstrating a pattern of violation of community
+standards, including sustained inappropriate behavior, harassment of an
+individual, or aggression toward or disparagement of classes of individuals.</p>
+<p><strong>Consequence</strong>: A permanent ban from any sort of public interaction within the
+community.</p>
+<h2 id="attribution"><a class="header" href="#attribution">Attribution</a></h2>
+<p>This Code of Conduct is adapted from the <a href="https://www.contributor-covenant.org">Contributor Covenant</a>,
+version 2.1, available at
+<a href="https://www.contributor-covenant.org/version/2/1/code_of_conduct.html">https://www.contributor-covenant.org/version/2/1/code_of_conduct.html</a>.</p>
+<p>Community Impact Guidelines were inspired by <a href="https://github.com/mozilla/diversity">Mozilla's code of conduct
+enforcement ladder</a>.</p>
+<p>For answers to common questions about this code of conduct, see the FAQ at
+<a href="https://www.contributor-covenant.org/faq">https://www.contributor-covenant.org/faq</a>. Translations are available at
+<a href="https://www.contributor-covenant.org/translations">https://www.contributor-covenant.org/translations</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>

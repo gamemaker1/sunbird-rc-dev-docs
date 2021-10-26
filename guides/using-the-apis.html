@@ -1,0 +1,489 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Using The APIs - Sunbird RC Developer Documentation</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Sunbird RC Overview</a></li><li class="chapter-item expanded affix "><li class="part-title">Installation And Setup</li><li class="chapter-item expanded "><a href="../guides/installation.html"><strong aria-hidden="true">2.</strong> Installation Guide</a></li><li class="chapter-item expanded "><a href="../guides/setup-registry-instance.html"><strong aria-hidden="true">3.</strong> Setting Up Your Own Registry Instance</a></li><li class="chapter-item expanded affix "><li class="part-title">Using The APIs</li><li class="chapter-item expanded "><a href="../guides/introduction-to-schemas.html"><strong aria-hidden="true">4.</strong> An Introduction To Schemas</a></li><li class="chapter-item expanded "><a href="../guides/using-the-apis.html" class="active"><strong aria-hidden="true">5.</strong> Using The APIs</a></li><li class="chapter-item expanded "><a href="../guides/schema-declaration.html"><strong aria-hidden="true">6.</strong> Creating Your Own Schemas</a></li><li class="chapter-item expanded affix "><li class="part-title">Advanced Guides</li><li class="chapter-item expanded "><a href="../guides/dev-setup.html"><strong aria-hidden="true">7.</strong> Running The Registry From Source</a></li><li class="chapter-item expanded affix "><li class="part-title">API Reference</li><li class="chapter-item expanded "><a href="../apis/create.html"><strong aria-hidden="true">8.</strong> Creating An Entity</a></li><li class="chapter-item expanded "><a href="../apis/auth.html"><strong aria-hidden="true">9.</strong> Authenticating As An Entity</a></li><li class="chapter-item expanded "><a href="../apis/retrieve.html"><strong aria-hidden="true">10.</strong> Retrieving An Entity</a></li><li class="chapter-item expanded "><a href="../apis/update.html"><strong aria-hidden="true">11.</strong> Updating An Entity</a></li><li class="chapter-item expanded "><a href="../apis/claim.html"><strong aria-hidden="true">12.</strong> Making A Claim</a></li><li class="chapter-item expanded "><a href="../apis/attest.html"><strong aria-hidden="true">13.</strong> Attesting/Rejecting A Claim</a></li><li class="chapter-item expanded affix "><li class="part-title">Contributing And Issues</li><li class="chapter-item expanded "><a href="../community/contributing.html"><strong aria-hidden="true">14.</strong> Contributing</a></li><li class="chapter-item expanded "><a href="../community/code-of-conduct.html"><strong aria-hidden="true">15.</strong> Code of Conduct</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Sunbird RC Developer Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="using-the-apis"><a class="header" href="#using-the-apis">Using the APIs</a></h1>
+<p>The following guide walks you through the different Registry APIs using the
+example of a teacher-student registry.</p>
+<h2 id="creating-an-entity"><a class="header" href="#creating-an-entity">Creating An Entity</a></h2>
+<p>We can create entities in the registry using the
+<a href="../apis/create.html">Create Entity API Endpoint</a>.</p>
+<p>To create a <code>Teacher</code> entity named Pranav Agate who teaches Math at UP Public
+School, we would make the following API call:</p>
+<p><strong>cURL</strong></p>
+<pre><code class="language-sh">curl --location \
+	--request 'POST' \
+	--header 'content-type: application/json' \
+	--data-raw '{
+		&quot;name&quot;: &quot;Pranav Agate&quot;,
+		&quot;phoneNumber&quot;: &quot;1234567890&quot;,
+		&quot;email&quot;: &quot;pranav@upps.in&quot;,
+		&quot;subject&quot;: &quot;Math&quot;,
+		&quot;school&quot;: &quot;UP Public School&quot;
+	}' \
+	'http://localhost:8081/api/v1/Teacher/invite'
+</code></pre>
+<p><strong>HTTPie</strong></p>
+<pre><code class="language-sh">echo '{
+	&quot;name&quot;: &quot;Pranav Agate&quot;,
+	&quot;phoneNumber&quot;: &quot;1234567890&quot;,
+	&quot;email&quot;: &quot;pranav@upps.in&quot;,
+	&quot;subject&quot;: &quot;Math&quot;,
+	&quot;school&quot;: &quot;UP Public School&quot;
+}' | http post \
+	'http://localhost:8081/api/v1/Teacher/invite' \
+	'content-type: application/json'
+</code></pre>
+<p>This will store the entity in the registry and return the following object:</p>
+<pre><code class="language-json">{
+	&quot;id&quot;: &quot;open-saber.registry.invite&quot;,
+	&quot;ver&quot;: &quot;1.0&quot;,
+	&quot;ets&quot;: 1634198998956,
+	&quot;params&quot;: {
+		&quot;resmsgid&quot;: &quot;&quot;,
+		&quot;msgid&quot;: &quot;3ee6a76f-d6c8-4262-a7ee-ddbe66fcb127&quot;,
+		&quot;err&quot;: &quot;&quot;,
+		&quot;status&quot;: &quot;SUCCESSFUL&quot;,
+		&quot;errmsg&quot;: &quot;&quot;
+	},
+	&quot;responseCode&quot;: &quot;OK&quot;,
+	&quot;result&quot;: { &quot;Teacher&quot;: { &quot;osid&quot;: &quot;1-9d6099fc-2c01-4714-bceb-55ff28c482f9&quot; } }
+}
+</code></pre>
+<p>Important variables in the response body:</p>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>result.{entity-type}.osid</code></td><td>body</td><td><code>string</code></td><td>The ID of the create entity in the registry, used for retrieval and modification of the entity</td></tr>
+</tbody></table>
+<h2 id="authenticating-as-an-entity"><a class="header" href="#authenticating-as-an-entity">Authenticating As An Entity</a></h2>
+<p>Now that we have created an entity, we can authenticate with the server as that
+entity to perform further operations like retrieving, searching, updating and
+attesting. We can authenticate as entities using the
+<a href="../apis/auth.html">Authenticate As Entity API Endpoint</a>.</p>
+<p>So to authenticate as the <code>Teacher</code> entity we just created, we would make the
+following API call:</p>
+<p><strong>cURL</strong></p>
+<pre><code class="language-sh">curl --location \
+	--request POST \
+	--header 'content-type: application/x-www-form-urlencoded' \
+	--data 'client_id=registry-frontend' \
+	--data 'username=1234567890' \
+	--data 'password=opensaber@123' \
+	--data 'grant_type=password' \
+	'http://kc:8080/auth/realms/sunbird-rc/protocol/openid-connect/token'
+</code></pre>
+<p><strong>HTTPie</strong></p>
+<pre><code class="language-sh">http --form post \
+	'http://kc:8080/auth/realms/sunbird-rc/protocol/openid-connect/token' \
+	'content-type: application/x-www-form-urlencoded' \
+	'client_id=registry-frontend' \
+	'username=1234567890' \
+	'password=opensaber@123' \
+	'grant_type=password'
+</code></pre>
+<blockquote>
+<p>Here, <code>registry-frontend</code> is the preconfigured client we use to make requests
+to keycloak and <code>opensaber@123</code> is the default password for all entities.</p>
+</blockquote>
+<p>This API call should return a JSON object as follows:</p>
+<pre><code class="language-json">{
+	&quot;access_token&quot;: &quot;eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lk...2cSSaBKuB58I2OYDGw&quot;,
+	&quot;expires_in&quot;: 300,
+	&quot;not-before-policy&quot;: 0,
+	&quot;refresh_expires_in&quot;: 1800,
+	&quot;refresh_token&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lk...9HulwVv12bBDUdU_nidZXo&quot;,
+	&quot;scope&quot;: &quot;email profile&quot;,
+	&quot;session_state&quot;: &quot;300f8a46-e430-4fd6-92aa-a2d337d7343e&quot;,
+	&quot;token_type&quot;: &quot;Bearer&quot;
+}
+</code></pre>
+<p>Important variables in the response body:</p>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>access_token</code></td><td>body</td><td><code>string</code></td><td>Access token used to retrieve/update entity</td></tr>
+<tr><td><code>expires_in</code></td><td>body</td><td><code>number</code></td><td>Number of seconds before the access token will be declared invalid</td></tr>
+<tr><td><code>token_type</code></td><td>body</td><td><code>string</code></td><td>Should be <code>Bearer</code>, else we have gotten the wrong token</td></tr>
+<tr><td><code>scope</code></td><td>body</td><td><code>string</code></td><td>Using this token, what information we can access about the entity</td></tr>
+</tbody></table>
+<h2 id="retrieving-an-entity"><a class="header" href="#retrieving-an-entity">Retrieving An Entity</a></h2>
+<p>We can retrieve entities in the registry using the
+<a href="../apis/retrieve.html">Retrieve Entity API Endpoint</a>.</p>
+<p>So to retrieve the entity we created earlier, we would make the following
+request:</p>
+<p><strong>cURL</strong></p>
+<pre><code class="language-sh">curl --location \
+	--request GET \
+	--header 'content-type: application/json' \
+	--header 'authorization: bearer {access-token}' \
+	'http://localhost:8081/api/v1/Teacher/{id}'
+</code></pre>
+<p><strong>HTTPie</strong></p>
+<pre><code class="language-sh">http get \
+	'http://localhost:8081/api/v1/Teacher/{id}' \
+	'authorization: bearer {access-token}'
+</code></pre>
+<blockquote>
+<p>Replace the <code>{id}</code> above with the entity's <code>osid</code> you saved from the create
+entity request. Replace the <code>{access-token}</code> with the <code>Teacher</code> entity's
+access token from the authentication step.</p>
+</blockquote>
+<p>This will return the entity's JSON representation as follows:</p>
+<pre><code class="language-json">{
+	&quot;phoneNumber&quot;: &quot;1234567890&quot;,
+	&quot;school&quot;: &quot;UP Public School&quot;,
+	&quot;subject&quot;: &quot;Math&quot;,
+	&quot;name&quot;: &quot;Pranav Agate&quot;,
+	&quot;osid&quot;: &quot;{id}&quot;,
+	&quot;osOwner&quot;: [&quot;{owner-id}&quot;],
+	&quot;_osState/school&quot;: &quot;DRAFT&quot;
+}
+</code></pre>
+<p>Important variables in the response body:</p>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>osOwner</code></td><td>body</td><td><code>string</code></td><td>User ID of the entity in Keycloak.</td></tr>
+<tr><td><code>_osState/{field}</code></td><td>body</td><td><code>string</code></td><td>State of an attestable field. Can be <code>DRAFT</code> (when it has not been sent for attestation), <code>ATTESTATION_REQUESTED</code> (when sent for attestation), <code>PUBLISHED</code> (when successfully attested) and <code>REJECTED</code> (when rejected by the attestor)</td></tr>
+</tbody></table>
+<h2 id="updating-an-entity"><a class="header" href="#updating-an-entity">Updating An Entity</a></h2>
+<p>We can update entities in the registry using the
+<a href="../apis/update.html">Update Entity API Endpoint</a>.</p>
+<p>So to update the subject our <code>Teacher</code> entity Pranav Agate teaches to <code>Biology</code>,
+we would make the following API call:</p>
+<p><strong>cURL</strong></p>
+<pre><code class="language-sh">curl --location \
+	--request 'PUT' \
+	--header 'content-type: application/json' \
+	--header 'authorization: bearer {access-token}' \
+	--data-raw '{
+		&quot;name&quot;: &quot;Pranav Agate&quot;,
+		&quot;phoneNumber&quot;: &quot;1234567890&quot;,
+		&quot;email&quot;: &quot;pranav@upps.in&quot;,
+		&quot;subject&quot;: &quot;Biology&quot;,
+		&quot;school&quot;: &quot;UP Public School&quot;
+	}' \
+	'http://localhost:8081/api/v1/Teacher/{id}'
+</code></pre>
+<p><strong>HTTPie</strong></p>
+<pre><code class="language-sh">echo '{
+	&quot;name&quot;: &quot;Pranav Agate&quot;,
+	&quot;phoneNumber&quot;: &quot;1234567890&quot;,
+	&quot;email&quot;: &quot;pranav@upps.in&quot;,
+	&quot;subject&quot;: &quot;Biology&quot;,
+	&quot;school&quot;: &quot;UP Public School&quot;
+}' | http put \
+	'http://localhost:8081/api/v1/Teacher/{id}' \
+	'content-type: application/json' \
+	'authorization: bearer {access-token}'
+</code></pre>
+<blockquote>
+<p>Replace the <code>{id}</code> above with the entity's <code>osid</code> you saved from the create
+entity request. Replace the <code>{access-token}</code> with the <code>Teacher</code> entity's
+access token from the authentication step.</p>
+</blockquote>
+<blockquote>
+<p>We need to send the whole entity and not just the updated fields because that
+is how RESTful APIs work. A PUT call should replace the existing record in the
+database with the new object as-is. To know more about this, take a look at
+the accepted answer on
+<a href="https://stackoverflow.com/questions/28459418/use-of-put-vs-patch-methods-in-rest-api-real-life-scenarios">this SO question</a>.</p>
+</blockquote>
+<p>This will update the entity in the registry and return the following object:</p>
+<pre><code class="language-json">{
+	&quot;id&quot;: &quot;open-saber.registry.update&quot;,
+	&quot;ver&quot;: &quot;1.0&quot;,
+	&quot;ets&quot;: 1634371946769,
+	&quot;params&quot;: {
+		&quot;resmsgid&quot;: &quot;&quot;,
+		&quot;msgid&quot;: &quot;d51e6e6a-027d-4a42-84bb-2ce00e31d993&quot;,
+		&quot;err&quot;: &quot;&quot;,
+		&quot;status&quot;: &quot;SUCCESSFUL&quot;,
+		&quot;errmsg&quot;: &quot;&quot;
+	},
+	&quot;responseCode&quot;: &quot;OK&quot;
+}
+</code></pre>
+<h2 id="making-a-claim"><a class="header" href="#making-a-claim">Making A Claim</a></h2>
+<p>To make a claim, we can use the <a href="../apis/claim.html">Claim API Endpoint</a>.</p>
+<p>First, let us create a <code>Student</code> entity named Prashant Joshi who also goes to UP
+Public School:</p>
+<p><strong>cURL</strong></p>
+<pre><code class="language-sh">curl --location \
+	--request 'POST' \
+	--header 'content-type: application/json' \
+	--data-raw '{
+		&quot;name&quot;: &quot;Prashant Joshi&quot;,
+		&quot;phoneNumber&quot;: &quot;9876543210&quot;,
+		&quot;email&quot;: &quot;prashant@upps.in&quot;,
+		&quot;school&quot;: &quot;UP Public School&quot;
+	}' \
+	'http://localhost:8081/api/v1/Student/invite'
+</code></pre>
+<p><strong>HTTPie</strong></p>
+<pre><code class="language-sh">echo '{
+	&quot;name&quot;: &quot;Prashant Joshi&quot;,
+	&quot;phoneNumber&quot;: &quot;9876543210&quot;,
+	&quot;email&quot;: &quot;prashant@upps.in&quot;,
+	&quot;school&quot;: &quot;UP Public School&quot;
+}' | http post \
+	'http://localhost:8081/api/v1/Student/invite' \
+	'content-type: application/json'
+</code></pre>
+<p>Next, we can get an access token for Prashant by making a POST request to the
+authentication server. See the
+<a href="#authenticating-as-an-entity">Authenticating As An Entity</a> section to know how
+to do that.</p>
+<p>Then, we can send the claim (that Prashant is a student at UP Public School) for
+attestation by making the following request:</p>
+<pre><code class="language-sh">curl --location \
+	--request 'PUT' \
+	--header 'content-type: application/json' \
+	--header 'authorization: bearer {access-token}' \
+	--data-raw '&quot;UP Public School&quot;' \
+	'http://localhost:8081/api/v1/Student/{id}/school?send=true'
+</code></pre>
+<p><strong>HTTPie</strong></p>
+<pre><code class="language-sh">echo '&quot;UP Public School&quot;' | http put \
+	'http://localhost:8081/api/v1/Student/{id}/school' \
+	'content-type: application/json' \
+	'authorization: bearer {access-token}' \
+	'send==true'
+</code></pre>
+<blockquote>
+<p>Replace the <code>{id}</code> above with the entity's <code>osid</code> you saved from the create
+entity request. Replace the <code>{access-token}</code> with the <code>Student</code> entity's
+access token from the authentication step.</p>
+</blockquote>
+<p>This will send the claim for attestation and return the following object:</p>
+<pre><code class="language-json">{
+	&quot;id&quot;: &quot;open-saber.registry.update&quot;,
+	&quot;ver&quot;: &quot;1.0&quot;,
+	&quot;ets&quot;: 1634371946769,
+	&quot;params&quot;: {
+		&quot;resmsgid&quot;: &quot;&quot;,
+		&quot;msgid&quot;: &quot;ksi38Dsl-8dIw-492j-6vlS-84KRe0Csop35&quot;,
+		&quot;err&quot;: &quot;&quot;,
+		&quot;status&quot;: &quot;SUCCESSFUL&quot;,
+		&quot;errmsg&quot;: &quot;&quot;
+	},
+	&quot;responseCode&quot;: &quot;OK&quot;
+}
+</code></pre>
+<p>If you retrieve the <code>Student</code> entity by following the
+<a href="#retrieving-an-entity">Retrieving An Entity section</a>, you will get the
+following object in response:</p>
+<pre><code class="language-json">{
+	&quot;email&quot;: &quot;prashant@upps.in&quot;,
+	&quot;name&quot;: &quot;Prashant Joshi&quot;,
+	&quot;phoneNumber&quot;: &quot;9876543210&quot;,
+	&quot;school&quot;: &quot;UP Public School&quot;,
+	&quot;osid&quot;: &quot;{id}&quot;,
+	&quot;osOwner&quot;: [&quot;{owner-id}&quot;],
+	&quot;_osClaimId/school&quot;: &quot;{claim-id}&quot;,
+	&quot;_osState/school&quot;: &quot;ATTESTATION_REQUESTED&quot;
+}
+</code></pre>
+<p>Important variables in the response body:</p>
+<table><thead><tr><th>Field</th><th>In</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>osOwner</code></td><td>body</td><td><code>string</code></td><td>User ID of the entity in Keycloak.</td></tr>
+<tr><td><code>_osState/{field}</code></td><td>body</td><td><code>string</code></td><td>State of an attestable field. Can be <code>DRAFT</code> (when it has not been sent for attestation), <code>ATTESTATION_REQUESTED</code> (when sent for attestation), <code>PUBLISHED</code> (when successfully attested) and <code>REJECTED</code> (when rejected by the attestor)</td></tr>
+<tr><td><code>_osClaimId/{field}</code></td><td>body</td><td><code>string</code></td><td>ID of the claim made on a field, required when attesting the claim.</td></tr>
+</tbody></table>
+<h2 id="attestingreject-a-claim"><a class="header" href="#attestingreject-a-claim">Attesting/Reject A Claim</a></h2>
+<p>We can attest/reject an entity's claim using the
+<a href="../api/attest.html">Attest Claim API Endpoint</a>.</p>
+<p>So to attest the claim we made in the previous section (that Prashant is a
+student at UP Public School), we make the following request:</p>
+<p><strong>cURL</strong></p>
+<pre><code class="language-sh">curl --location \
+	--request 'POST' \
+	--header 'content-type: application/json' \
+	--header 'authorization: bearer {access-token}' \
+	--data-raw '{
+		&quot;action&quot;: &quot;GRANT_CLAIM&quot;
+	}' \
+	'http://localhost:8081/api/v1/Teacher/claims/{claim-id}/attest'
+</code></pre>
+<p><strong>HTTPie</strong></p>
+<pre><code class="language-sh">echo '{
+	&quot;action&quot;: &quot;GRANT_CLAIM&quot;
+}' | http post \
+	'http://localhost:8081/api/v1/Teacher/claims/{claim-id}/attest' \
+	'content-type: application/json' \
+	'authorization: bearer {access-token}'
+</code></pre>
+<blockquote>
+<p>Replace the <code>{claim-id}</code> above with the <code>_osClaimId/school</code> you saved from the
+make a claim request. Replace the <code>{access-token}</code> with the <code>Teacher</code> entity's
+access token from the authentication step. Replace <code>GRANT_CLAIM</code> with
+<code>REJECT_CLAIM</code> to reject the claim instead.</p>
+</blockquote>
+<p>This will attest/reject the claim and return a blank HTTP 200 response.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../guides/introduction-to-schemas.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../guides/schema-declaration.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../guides/introduction-to-schemas.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../guides/schema-declaration.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>
